@@ -12,9 +12,3 @@ if (MSVC)
 else ()
 	target_compile_options(ip_filter_lib PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
-
-target_include_directories(ip_filter_lib PRIVATE
-	"${CMAKE_CURRENT_BINARY_DIR}"
-)
-
-configure_file(version.h.in version.h)
