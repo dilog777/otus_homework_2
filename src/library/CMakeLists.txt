@@ -1,19 +1,19 @@
 file(GLOB_RECURSE SRC *.h *.hpp *.cpp)
 
-add_library(helloworld_lib ${SRC})
+add_library(ip_filter_lib ${SRC})
 
-set_target_properties(helloworld_lib PROPERTIES
+set_target_properties(ip_filter_lib PROPERTIES
 	CXX_STANDARD 14
 	CXX_STANDARD_REQUIRED ON
 )
 
 if (MSVC)
-	target_compile_options(helloworld_lib PRIVATE /W4)
+	target_compile_options(ip_filter_lib PRIVATE /W4)
 else ()
-	target_compile_options(helloworld_lib PRIVATE -Wall -Wextra -pedantic -Werror)
+	target_compile_options(ip_filter_lib PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
 
-target_include_directories(helloworld_lib PRIVATE
+target_include_directories(ip_filter_lib PRIVATE
 	"${CMAKE_CURRENT_BINARY_DIR}"
 )
 
