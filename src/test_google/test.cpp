@@ -7,10 +7,10 @@ TEST(test_ip_address, test_load_from_string)
 {
 	auto addressStr = "155.71.1.255";
 	auto address = IPAddress::fromString(addressStr);
-	EXPECT_TRUE(address.addressPart(0) == 155);
-	EXPECT_TRUE(address.addressPart(1) == 71);
-	EXPECT_TRUE(address.addressPart(2) == 1);
-	EXPECT_TRUE(address.addressPart(3) == 255);
+	EXPECT_TRUE(address.part0 == 155);
+	EXPECT_TRUE(address.part1 == 71);
+	EXPECT_TRUE(address.part2 == 1);
+	EXPECT_TRUE(address.part3 == 255);
 }
 
 

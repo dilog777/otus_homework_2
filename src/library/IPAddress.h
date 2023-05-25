@@ -1,23 +1,16 @@
 #pragma once
 
-#include <array>
 #include <string>
 
-static const size_t IP_ADDRESS_SIZE = 4;
 
-using IPAddressPart = unsigned char;
-
-
-class IPAddress
+struct IPAddress
 {
-public:
-	static IPAddress fromString(const std::string &string);
+	int part0{ 0 };
+	int part1{ 0 };
+	int part2{ 0 };
+	int part3{ 0 };
 
 	std::string toString() const;
-
-	IPAddressPart addressPart(int partIdx) const;
-	void setAddressPart(int partIdx, IPAddressPart value);
-
-private:
-	std::array<IPAddressPart, IP_ADDRESS_SIZE> _parts;
+	static IPAddress fromString(const std::string &string);
 };
+

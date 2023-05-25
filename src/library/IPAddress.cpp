@@ -1,75 +1,32 @@
 #include "IPAddress.h"
 
-#include "commonFunctions.h"
+#include <sstream>
 
 
 static const char IP_ADDRESS_DELIMITER = '.';
 
 
-IPAddressPart string_to_address_part(const std::string &string)
-{
-	try
-	{
-		int value = std::stoi(string);
-		return static_cast<IPAddressPart>(value);
-	}
-	catch (...)
-	{
-		return {};
-	}
-}
-
-
-
 IPAddress IPAddress::fromString(const std::string &string)
 {
-	auto stringParts = split(string, IP_ADDRESS_DELIMITER);
-	if (stringParts.size() != IP_ADDRESS_SIZE)
-		return {};
-
-	IPAddress address{};
-	for (int i = 0; i < IP_ADDRESS_SIZE; ++i)
-	{
-		auto part = string_to_address_part(stringParts[i]);
-		address.setAddressPart(i, part);
-	}
-
-	return address;
+	std::stringstream ss(string);
+	int p0, p1, p2, p3;
+	char ch;
+	ss >> p0 >> ch >> p1 >> ch >> p2 >> ch >> p3;
+	
+	return IPAddress{ p0, p1, p2, p3 };
 }
 
 
 
 std::string IPAddress::toString() const
 {
+	std::stringstream ss;
+	ss << part0 << IP_ADDRESS_DELIMITER;
+	ss << part1 << IP_ADDRESS_DELIMITER;
+	ss << part2 << IP_ADDRESS_DELIMITER;
+	ss << part3;
+	
 	std::string result;
-
-	for (auto it = _parts.cbegin(); it != _parts.cend(); ++it)
-	{
-		if (it != _parts.cbegin())
-			result += IP_ADDRESS_DELIMITER;
-
-		result += std::to_string(*it);
-	}
-
+	ss >> result;
 	return result;
-}
-
-
-
-IPAddressPart IPAddress::addressPart(int partIdx) const
-{
-	if (partIdx < 0 || partIdx >= IP_ADDRESS_SIZE)
-		return {};
-
-	return _parts[partIdx];
-}
-
-
-
-void IPAddress::setAddressPart(int partIdx, IPAddressPart value)
-{
-	if (partIdx < 0 || partIdx >= IP_ADDRESS_SIZE)
-		return;
-
-	_parts[partIdx] = value;
 }
