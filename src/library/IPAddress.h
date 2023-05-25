@@ -12,5 +12,7 @@ struct IPAddress
 
 	std::string toString() const;
 	static IPAddress fromString(const std::string &string);
+
+	bool operator<(const IPAddress &r) const;
 };
 

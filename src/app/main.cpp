@@ -1,21 +1,61 @@
+#include <algorithm>
 #include <iostream>
-#include <vector>
 
 #include "IPAddress.h"
+#include "IPFilter.h"
+#include "IPLoader.h"
 
 
-int main (int, char **)
+void printAddressList(const std::vector<IPAddress> &list)
 {
-	std::vector<std::string> list = { "10.1.5.133", "120.17.6.18", "121.2.4.255" };
-	//std::vector<std::string> list = { "10.1.5", "1120.17.6.18", "121.2.4.255.189" };
+	for (const auto &address : list)
+		std::cout << address.toString() << std::endl;
+}
 
 
 
-	for (const auto &str : list)
+void printFilteredList(const std::vector<IPAddress> &list, const IPFilter::FilterFunc &filter)
+{
+	auto filtered_list = IPFilter::filter(list, filter);
+	printAddressList(filtered_list);
+}
+
+
+
+int main (int argc, char *argv[])
+{
+	std::string filePath;
+	if (argc > 1)
+		filePath = argv[1];
+
+	IPLoader loader;
+	auto ip_list = loader.load(filePath);
+
+	std::sort(ip_list.begin(), ip_list.end());
+
+	auto filter1 = [](const IPAddress &address) -> bool
 	{
-		auto addr = IPAddress::fromString(str);
-		std::cout << str << " => " << addr.toString() << std::endl;
-	}
-	
+		return address.part0 == 1;
+	};
+
+	auto filter2 = [](const IPAddress &address) -> bool
+	{
+		return address.part0 == 46 
+			&& address.part1 == 70;
+	};
+
+	auto filter3 = [](const IPAddress &address) -> bool
+	{
+		return address.part0 == 46 
+			|| address.part1 == 46
+			|| address.part2 == 46
+			|| address.part3 == 46;
+	};
+
+	printAddressList(ip_list);
+	printFilteredList(ip_list, filter1);
+	printFilteredList(ip_list, filter2);
+	printFilteredList(ip_list, filter3);
+
 	return 0;
 }
