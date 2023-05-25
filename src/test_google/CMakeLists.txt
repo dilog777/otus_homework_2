@@ -19,7 +19,7 @@ target_include_directories(test_google PRIVATE
 
 target_link_libraries(test_google PRIVATE
 	GTest::gtest_main
-	helloworld_lib
+	ip_filter_lib
 )
 
 include(GoogleTest)
