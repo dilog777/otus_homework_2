@@ -31,7 +31,7 @@ int main (int argc, char *argv[])
 	IPLoader loader;
 	auto ip_list = loader.load(filePath);
 
-	std::sort(ip_list.begin(), ip_list.end());
+	std::sort(ip_list.begin(), ip_list.end(), std::greater<>());
 
 	auto filter1 = [](const IPAddress &address) -> bool
 	{

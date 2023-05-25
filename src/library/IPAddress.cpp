@@ -44,3 +44,19 @@ bool IPAddress::operator<(const IPAddress &r) const
 	
 	return part3 < r.part3;
 }
+
+
+
+bool IPAddress::operator>(const IPAddress &r) const
+{
+	if (part0 != r.part0)
+		return part0 > r.part0;
+
+	if (part1 != r.part1)
+		return part1 > r.part1;
+
+	if (part2 != r.part2)
+		return part2 > r.part2;
+	
+	return part3 > r.part3;
+}
