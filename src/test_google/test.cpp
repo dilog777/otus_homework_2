@@ -22,10 +22,3 @@ TEST(test_ip_address, test_save_to_string)
 	auto newAddressStr = address.toString();
 	EXPECT_TRUE(srcAddressStr == newAddressStr);
 }
-
-
-
-int main(int argc, char** argv) {
-	testing::InitGoogleTest(&argc, argv);
-	return RUN_ALL_TESTS();
-}

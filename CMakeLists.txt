@@ -5,6 +5,17 @@ set(PROJECT_VERSION 0.0.${PATCH_VERSION})
 
 project(ip_filter VERSION ${PROJECT_VERSION})
 
+set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD_REQUIRED ON)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+if (MSVC)
+	add_compile_options(/W4)
+else()
+	add_compile_options(-Wall -Wextra -pedantic -Werror)
+endif()
+
+
 include(FetchContent)
 FetchContent_Declare(
 	googletest
