@@ -1,1 +1,1 @@
-# Шаблон настройки GitHub Actions
+# Шаблон настройки GitHub Actions 
